@@ -1,8 +1,4 @@
-
-import {
-    createBrowserRouter,
-    
-  } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Root from "../Root";
 import Home from "../Home/Home";
 import Blog from "../Blog/Blog";
@@ -17,63 +13,83 @@ import UpdateInfo from "../Private Routes/UpdateInfo";
 import AddtoCart from "../Navbar/AddtoCart";
 import Contact from "../Contacts/Contact";
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Root></Root>,
-      errorElement:<ErrorPage>,</ErrorPage>,
-      children: [
-        {
-          path: '/',
-          element:<Home></Home>,
-  
-        },
-        {
-          path: '/blog',
-          element:<Blog></Blog>
-        },
-        {
-          path: '/login',
-          element: <Login></Login>
-        },
-        {
-          path:'/register',
-          element:<Register></Register>
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root></Root>,
+    errorElement: <ErrorPage>,</ErrorPage>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/addproduct",
+        element: (
+          <PrivateRoute>
+            <AddProduct></AddProduct>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/showproducts/:brand",
+        loader: ({ params }) =>
+          fetch(
+            `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/showproducts/${params.brand}`
+          ),
+        element: <ShowProducts></ShowProducts>,
+      },
+      {
+        path: "/details/:brand/:id",
+        loader: ({ params }) =>
+          fetch(
+            `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/details/${params.brand}/${params.id}`
+          ),
+        element: (
+          <PrivateRoute>
+            <ViewDetails></ViewDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update/:brand/:id",
+        loader: ({ params }) =>
+          fetch(
+            `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/update/${params.brand}/${params.id}`
+          ),
+        element: (
+          <PrivateRoute>
+            <UpdateInfo></UpdateInfo>
+          </PrivateRoute>
+        ),
+      },
 
-        },
-        {
-          path: '/addproduct',
-          element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
-        },
-        {
-          path: '/showproducts/:brand',
-          loader: ({params})=> fetch(`http://localhost:5000/showproducts/${params.brand}`)
-           ,
-          element: <ShowProducts></ShowProducts>
-        },
-        {
-          path:'/details/:brand/:id',
-          loader: ({params})=>fetch(`http://localhost:5000/details/${params.brand}/${params.id}`),
-          element:<PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>
-        },
-        {
-          path: '/update/:brand/:id',
-          loader: ({params}) => fetch(`http://localhost:5000/update/${params.brand}/${params.id}`),
-          element:<PrivateRoute><UpdateInfo></UpdateInfo></PrivateRoute>
-        },
-        
-        {
-          path: '/cart',
-          element:<PrivateRoute><AddtoCart></AddtoCart></PrivateRoute>
-        },
-        {
-          path: '/contact',
-          element:<Contact></Contact>
-        }
+      {
+        path: "/cart",
+        element: (
+          <PrivateRoute>
+            <AddtoCart></AddtoCart>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
+      },
+    ],
+  },
+]);
 
-
-      ]
-    },
-  ]);
-
-  export default router;
+export default router;
