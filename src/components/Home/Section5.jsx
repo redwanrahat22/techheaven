@@ -60,7 +60,7 @@ const Section5 = () => {
                       <textarea id="description" name="description" className={`md:w-full w-3/4 p-2 md:p-3 h-24 md:h-40 text-[10px] md:text-[15px] border border-gray-300 rounded-sm md:rounded-lg focus:outline-none ${screenmode ? "focus:border-dmgreen " : 'focus:border-lmblue'} text-black bg-white focus:ring-1  `} placeholder="Describe your query or concern" required></textarea>
                     </div>
                   </div>
-                  <button type="submit" className={`${screenmode ? "bg-dmgreen hover:bg-emerald-400" : 'bg-lmblue hover:bg-blue-600'} duration-100 w-2/5 text-[10px] md:text-[15px] mx-auto md:w-full py-2 md:py-3  text-white font-semibold rounded-md md:rounded-lg shadow-md  focus:outline-none focus:ring-2  focus:ring-offset-1 md:col-span-2`}>Send Message</button>
+                  <button type="submit" className={`${screenmode ? "bg-dmgreen hover:bg-emerald-400" : 'bg-lmblue hover:bg-blue-600'} duration-100 mb-5 md:mb-0 w-2/5 text-[10px] md:text-[15px] mx-auto md:w-full py-2 md:py-3  text-white font-semibold rounded-md md:rounded-lg shadow-md  focus:outline-none focus:ring-2  focus:ring-offset-1 md:col-span-2`}>Send Message</button>
                 </form>
 
             </div>
