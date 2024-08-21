@@ -75,7 +75,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
+      },
       {
         path: "/cart",
         element: (
@@ -84,10 +87,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/contact",
-        element: <Contact></Contact>,
-      },
+     
     ],
   },
 ]);
