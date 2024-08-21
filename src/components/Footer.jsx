@@ -12,7 +12,7 @@ const Footer = () => {
 
     return (
         <div className="" >
-            <hr className={`border-dotted ${screenmode ? 'border-dmgreen' : 'border-lmblue'}`} />
+            <hr className={`md:border-dotted ${screenmode ? 'border-dmgreen' : 'border-lmblue'}`} />
             
             <div className={`w-10/12 ml-6 lg:ml-64 md:ml-32 mt-12 md:pt-10 lg:pt-20  grid grid-cols-2 md:grid-cols-4 `}>
 
