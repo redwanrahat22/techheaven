@@ -141,11 +141,12 @@ const Navbar = () => {
         }
        
       </div>
-          
+        
     
     </>
     return (
       <div >
+        {/* for git push */}
         <div className={` fixed  top-0 w-full transition-all ${screenmode ? 'bg-black' :`${scroll ? 'bg-white' : 'bg-transparent'}`}  bg-opacity-85`  } >
       
 
@@ -156,7 +157,7 @@ const Navbar = () => {
    
     <div className="dropdown lg:hidden absolute ">
       <div tabIndex={0} role="button" className=" ">
-      <h1 className="text-xl md:text-3xl"><RiMenu4Fill /></h1>
+      <h1 className="text-2xl md:text-3xl"><RiMenu4Fill /></h1>
       </div>
      
       <ul tabIndex={0} className={`${screenmode ? 'bg-black text-white' : 'bg-[#eff4fd] bg-opacity-70 text-black'} -ml-10 md:-ml-12 menu menu-sm h-screen dropdown-content  mt-[23px] md:mt-9 rounded-sm  z-[1] p-2 shadow  md:w-72 w-52`}>
