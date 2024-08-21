@@ -120,7 +120,7 @@ const Navbar = () => {
           <div className="flex"> 
           <h1 className={`${screenmode? "text-dmgreen" : 'text-lmblue' } text-2xl md:text-4xl`}><TiShoppingCart /></h1>
           <div className="-ml-3 -mt-1 bg-red-500 md:h-4 h-3 md:w-4 w-3 rounded-full relative">
-          <h2 className="absolute  -top-1 md:right-[1px] left-[2px]   text-center md:text-[17px] text-[12px] font-page text-white ">{totalCart}</h2>
+          <h2 className="absolute  -top-1 md:right-[1px] left-[2px]   text-center md:text-[17px] text-[12px] font-menu text-white ">{totalCart}</h2>
           </div>
           </div>
 

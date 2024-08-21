@@ -111,7 +111,7 @@ const ViewDetails = () => {
                               draggable
                               pauseOnHover
                               theme="light"
-                              
+                              transition={Bounce}
                     />
             <ToastContainer />
             <div className="w-10/12 m-auto flex justify-between gap-20">

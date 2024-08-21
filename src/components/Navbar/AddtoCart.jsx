@@ -90,7 +90,7 @@ const AddtoCart = () => {
         },[])
        const total = cartData.reduce((accu,data)=>(accu + Number(data.prodPrice)),0)
     return (
-        <div className="h-screen font-menu">
+        <div className="h-auto font-menu">
 
                 <div className="mt-20">
                     <div className={`flex items-center space-x-2 justify-center text-4xl  ${screenmode ? 'text-dmgreen' : 'text-lmblue'}`}>
