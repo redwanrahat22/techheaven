@@ -99,7 +99,7 @@ const ViewDetails = () => {
         window.scrollTo(0,0)
     },[])
     return (
-        <div className="h-screen mt-32">
+        <div className="h-auto mb-16 md:mb-20 md:mt-32">
                 <ToastContainer
                               position="top-right"
                               autoClose={1500}
@@ -114,15 +114,15 @@ const ViewDetails = () => {
                               transition={Bounce}
                     />
             <ToastContainer />
-            <div className="w-10/12 m-auto flex justify-between gap-20">
+            <div className="w-10/12 m-auto md:flex justify-between gap-20">
 
-                <img className={`w-1/2 rounded-tl-3xl rounded-br-3xl`} src={viewData.url} alt="" />
+                <img className={`md:w-1/2 rounded-tl-3xl rounded-br-3xl`} src={viewData.url} alt="" />
 
-                <div className="w-1/2 mt-8 ">
+                <div className="md:w-1/2 mt-8 ">
 
-                <div className="pt-2  justify-between flex  ">
+                <div className="pt-2  justify-between md:flex  ">
                     
-                <h1 className={`font-semibold text-5xl `}>{viewData.name}</h1>
+                <h1 className={`font-semibold text-2xl mb-4 md:mb-0 md:text-5xl `}>{viewData.name}</h1>
 
                 <div className="items-center flex mr-2">
 
@@ -134,12 +134,12 @@ const ViewDetails = () => {
                 </div>
                 </div>
 
-                <div className="mt-12 space-y-2 text-lg">
+                <div className="md:mt-12 mt-6 space-y-2 md:text-lg">
                 <h2 className=" "><span className="font-bold">Rating: </span>{viewData.rating}/10</h2>
                 <h1><span className="font-bold">Category:</span>  {viewData.type}</h1>
                 <h2><span className="font-bold">Brand:</span>  {viewData.brand}</h2>
                 <h2 ><span className="font-bold">Price: </span><span className={`${screenmode? 'text-dmgreen' : 'text-lmblue'}`}>${viewData.price} </span> </h2>
-                <h3 className="opacity-80 ">{viewData.description}</h3>
+                <h3 className="w- opacity-80 text- ">{viewData.description}</h3>
                 </div>
                 </div>
             </div>
