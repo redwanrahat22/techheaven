@@ -19,13 +19,13 @@ const Login = () => {
 
   const handleDB = (UserData) => {
     fetch(
-      `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/users/${UserData.email}`
+      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${UserData.email}`
     )
       .then((res) => res.json())
       .then((data) => {
         if (!data) {
           fetch(
-            "https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/users",
+            "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
             {
               method: "POST",
               headers: {

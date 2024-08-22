@@ -19,7 +19,7 @@ const UpdateInfo = () => {
     e.preventDefault();
 
     fetch(
-      `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/productDB`,
+      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/productDB`,
       {
         method: "PUT",
         headers: {

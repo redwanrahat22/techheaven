@@ -21,7 +21,7 @@ const AuthProvider = ({children}) => {
     
 
 
-    const handleGetEmail = (email,userID)=>{
+    const handleGetEmail = (email)=>{
           localStorage.setItem('email',JSON.stringify(email))
           setemail(email)
     }

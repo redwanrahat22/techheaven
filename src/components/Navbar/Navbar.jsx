@@ -11,19 +11,19 @@ const Navbar = () => {
     changeScreen,
     user,
     handleSignOut,
-    useremail,
     settotalCart,
     totalCart,
     setUserInfo,
     userInfo,
   } = useContext(AuthContex);
 
+  const useremail = JSON.parse(localStorage.getItem("email"));
   const [scroll, setScroll] = useState(false);
   const [charImg, setcharImg] = useState(null);
 
   useEffect(() => {
     fetch(
-      `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/users/${useremail}`
+      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${useremail}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -32,10 +32,12 @@ const Navbar = () => {
         setcharImg(data.username.charAt(0));
         setUserInfo({
           username: data.username,
-          userpro: data.gurl ? data.gurl.replace(/['"]+/g, "") : null,
+          userpro: data.gurl ? data.gurl : null,
         });
       });
   }, [useremail]);
+
+  console.log(userInfo);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -209,7 +211,7 @@ const Navbar = () => {
           >
             {userInfo.userpro ? (
               <img
-                src={userInfo.userpro}
+                src={userInfo.userpro.replace(/['"]+/g, "")}
                 className={`w-10 h-10 rounded-full`}
                 alt=""
               />

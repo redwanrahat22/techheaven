@@ -1,48 +1,135 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContex } from "./AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
-  const { screenmode, handleSignUp, user, handleGoogleSignIn, handleGetEmail } =
+  const { screenmode, handleSignUp, handleGoogleSignIn, handleGetEmail } =
     useContext(AuthContex);
   const [showpass, setshowpass] = useState(false);
   const [showconpass, setshowconpass] = useState(false);
   const [errormessage, seterrormess] = useState("");
   const nav = useNavigate();
 
-  const handleDB = (UserData) => {
-    fetch(
-      `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/users/${UserData.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data) {
-          fetch(
-            "https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/users",
-            {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(UserData),
-            }
-          );
+  const handleGDB = async (GUserInfo) => {
+    const res = await fetch(
+      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${GUserInfo.email}`
+    );
+
+    const data = await res.json();
+
+    if (!data) {
+      fetch(
+        "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(GUserInfo),
         }
-      })
-      .catch((result) => {
-        fetch(
-          "https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/users",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(UserData),
-          }
-        );
+      );
+
+      console.log("data on google");
+      toast.success("Login Successful ", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        onClose: () => {
+          setTimeout(() => {
+            nav("/");
+          }, 1500);
+        },
       });
+    }
+  };
+
+  const handleDB = async (UserData) => {
+    try {
+      await fetch(
+        "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(UserData),
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+
+      console.log("data added");
+      toast.success("User Created Successfully ", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        onClose: () => {
+          setTimeout(() => {
+            nav("/");
+          }, 1500);
+        },
+      });
+    } catch {
+      toast.error("Oops! Something went wrong", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+    } finally {
+      console.log("");
+    }
+
+    // fetch(
+    //   `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${UserData.email}`
+    // )
+    //   .then((res) => res.json())
+    //   .then((data) => {
+
+    //     if (!data) {
+    //       fetch(
+    //         "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
+    //         {
+    //           method: "POST",
+    //           headers: {
+    //             "content-type": "application/json",
+    //           },
+    //           body: JSON.stringify(UserData),
+    //         }
+    //       );
+    //     }
+    //   })
+    // .catch((result) => {
+    //   fetch(
+    //     "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "content-type": "application/json",
+    //       },
+    //       body: JSON.stringify(UserData),
+    //     }
+    //   );
+    // });
   };
 
   const handleRegister = (e) => {
@@ -75,26 +162,11 @@ const Register = () => {
       seterrormess("password must contain a special character");
     else {
       seterrormess("");
+
       handleSignUp(email, password)
         .then((result) => {
           handleGetEmail(email);
           handleDB(UserInfo);
-          toast.success("Login Successful ", {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-            onClose: () => {
-              setTimeout(() => {
-                nav("/");
-              }, 1000);
-            },
-          });
         })
 
         .catch((error) => {
@@ -118,7 +190,7 @@ const Register = () => {
         const gSignin = true;
         const gverify = user.emailVerified;
         handleGetEmail(email);
-        const UserInfog = {
+        const GUserInfo = {
           username,
           email,
           gurl,
@@ -126,11 +198,11 @@ const Register = () => {
           gverify,
         };
 
-        handleDB(UserInfog);
+        handleGDB(GUserInfo);
 
         toast.success("Login Successful ", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -141,7 +213,7 @@ const Register = () => {
           onClose: () => {
             setTimeout(() => {
               nav("/");
-            }, 1000);
+            }, 1500);
           },
         });
       })

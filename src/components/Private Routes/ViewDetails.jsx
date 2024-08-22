@@ -5,75 +5,72 @@ import { AuthContex } from "../AuthProvider/AuthProvider";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 const ViewDetails = () => {
   const viewData = useLoaderData();
-  const { screenmode, useremail, settotalCart } = useContext(AuthContex);
+  const { screenmode, settotalCart } = useContext(AuthContex);
   const [loadUser, setloadUser] = useState(null);
+
+  const useremail = JSON.parse(localStorage.getItem("email"));
+  console.log(useremail);
 
   const handleCart = async (e) => {
     e.preventDefault();
 
+    const prodID = viewData._id;
+    const prodBrand = viewData.brand;
+    const prodName = viewData.name;
+    const prodPrice = viewData.price;
+    const prodUrl = viewData.url;
+    const prodRating = viewData.rating;
+
+    const prodData = {
+      prodID,
+      prodBrand,
+      prodName,
+      prodPrice,
+      prodUrl,
+      prodRating,
+    };
+
+    console.log("entered funtion");
+
     const temparr = [];
-    let username = "";
+    // let username = "";
 
-    try {
-      const response = await fetch(
-        `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/users/${useremail}`
-      );
+    const response = await fetch(
+      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${useremail}`
+    );
 
-      const data = await response.json();
+    const data = await response.json();
 
-      setloadUser(data);
+    // setloadUser(data);
 
-      username = data._id;
+    // username = data._id;
+    // if (loadUser?.cart.length > 0) temparr.push(...loadUser.cart);
 
-      if (loadUser?.cart.length > 0) temparr.push(...loadUser.cart);
-    } catch {
-      console.log("something wrong");
-    } finally {
-      const prodID = viewData._id;
-      const prodBrand = viewData.brand;
-      const prodName = viewData.name;
-      const prodPrice = viewData.price;
-      const prodUrl = viewData.url;
-      const prodRating = viewData.rating;
+    console.log("in try", "data", data);
+    console.log("temp arr", temparr);
+    data.cart ? temparr.push(...data.cart, prodData) : temparr.push(prodData);
 
-      const prodData = {
-        prodID,
-        prodBrand,
-        prodName,
-        prodPrice,
-        prodUrl,
-        prodRating,
-      };
+    console.log("after update temparr", temparr);
 
-      if (loadUser?.cart) temparr.push(...loadUser.cart);
-      else temparr.push(prodData);
+    // if (loadUser?.cart) temparr.push(...loadUser.cart);
+    // else temparr.push(prodData);
 
-      fetch(
-        `https://tech-heaven-server-3e6b2szex-noobcooders-projects.vercel.app/addtocart/${username}`,
-        {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(temparr),
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          settotalCart(temparr.length);
-          toast.success("Successfully Added To Cart ", {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
-        });
-    }
+    fetch(
+      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/addtocart/${data._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(temparr),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        settotalCart(temparr.length);
+
+        toast.success("Successfully added to cart");
+      });
   };
 
   useLayoutEffect(() => {
@@ -81,20 +78,6 @@ const ViewDetails = () => {
   }, []);
   return (
     <div className="h-auto mb-16 md:mb-20 md:mt-32">
-      <ToastContainer
-        position="top-right"
-        autoClose={1500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
-      <ToastContainer />
       <div className="w-10/12 m-auto md:flex justify-between gap-20">
         <img
           className={`md:w-1/2 rounded-tl-3xl rounded-br-3xl`}
