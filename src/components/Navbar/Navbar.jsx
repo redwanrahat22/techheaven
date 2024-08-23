@@ -17,14 +17,18 @@ const Navbar = () => {
     
     userInfo
   } = useContext(AuthContex);
+  const [useremail,setuseremail] =useState(JSON.parse(localStorage.getItem("email")))
+  useEffect(()=>{
+    const useremail = JSON.parse(localStorage.getItem("email"));
+    setuseremail(useremail)
 
-  const useremail = JSON.parse(localStorage.getItem("email"));
+  },[])
   const [scroll, setScroll] = useState(false);
   const [charImg, setcharImg] = useState(null);
 
   useEffect(() => {
     fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${useremail}`
+      `https://tech-heaven-server-seven.vercel.app/users/${useremail}`
     )
       .then((res) => res.json())
       .then((data) => {

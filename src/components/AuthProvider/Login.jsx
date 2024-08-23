@@ -23,13 +23,13 @@ const [toastType, setToastType] = useState('success');
 
   const handleDB = (UserData) => {
     fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${UserData.email}`
+      `https://tech-heaven-server-seven.vercel.app/users/${UserData.email}`
     )
       .then((res) => res.json())
       .then((data) => {
         if (!data) {
           fetch(
-            "https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users",
+            "https://tech-heaven-server-seven.vercel.app/users",
             {
               method: "POST",
               headers: {

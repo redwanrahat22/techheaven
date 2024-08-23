@@ -9,11 +9,10 @@ const ViewDetails = () => {
   const { screenmode, settotalCart } = useContext(AuthContex);
 
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState('info');
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("info");
 
   const useremail = JSON.parse(localStorage.getItem("email"));
-
 
   const handleCart = async (e) => {
     e.preventDefault();
@@ -34,12 +33,11 @@ const ViewDetails = () => {
       prodRating,
     };
 
-
     const temparr = [];
     // let username = "";
 
     const response = await fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${useremail}`
+      `https://tech-heaven-server-seven.vercel.app/users/${useremail}`
     );
 
     const data = await response.json();
@@ -49,34 +47,27 @@ const ViewDetails = () => {
     // username = data._id;
     // if (loadUser?.cart.length > 0) temparr.push(...loadUser.cart);
 
-
     data.cart ? temparr.push(...data.cart, prodData) : temparr.push(prodData);
-
-
 
     // if (loadUser?.cart) temparr.push(...loadUser.cart);
     // else temparr.push(prodData);
 
-    fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/addtocart/${data._id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(temparr),
-      }
-    )
+    fetch(`https://tech-heaven-server-seven.vercel.app/addtocart/${data._id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(temparr),
+    })
       .then((res) => res.json())
       .then((data) => {
         settotalCart(temparr.length);
-        setToastMessage('Successfully Added To Cart')
-        setToastType('success')
-        setShowToast(true)
+        setToastMessage("Successfully Added To Cart");
+        setToastType("success");
+        setShowToast(true);
         setTimeout(() => {
-          setShowToast(false)
+          setShowToast(false);
         }, 2000);
-      
       });
   };
 
@@ -111,12 +102,12 @@ const ViewDetails = () => {
                 <FaCartArrowDown />
               </button>
               {showToast && (
-        <Toast
-          message={toastMessage}
-          type={toastType}
-          onClose={() => setShowToast(false)}
-        />
-      )}
+                <Toast
+                  message={toastMessage}
+                  type={toastType}
+                  onClose={() => setShowToast(false)}
+                />
+              )}
             </div>
           </div>
 

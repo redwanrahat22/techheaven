@@ -6,8 +6,8 @@ import Toast from "../Toast";
 const UpdateInfo = () => {
   const UpdateData = useLoaderData();
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState('success');
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("success");
   const { screenmode } = useContext(AuthContex);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [FormData, setFormData] = useState(UpdateData);
@@ -17,31 +17,23 @@ const UpdateInfo = () => {
   }, []);
 
   const handleUpdate = (e) => {
-    
     e.preventDefault();
 
-    fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/productDB`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(FormData),
-      }
-    )
+    fetch(`https://tech-heaven-server-seven.vercel.app/productDB`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(FormData),
+    })
       .then((res) => res.json())
       .then((data) => {
-
-        setToastMessage('Product Info Was Updated');
-setToastType('success');
-setShowToast(true);
-setTimeout(() => {
-    setShowToast(false)
-
-}, 1500);
-
-     
+        setToastMessage("Product Info Was Updated");
+        setToastType("success");
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 1500);
       });
   };
 
@@ -66,7 +58,6 @@ setTimeout(() => {
 
   return (
     <div className="h-auto mb-16 md:mb-20 md:mt-16 -mt-8 font-menu">
-    
       <div>
         <div className="text-center mb-8 md:mb-16">
           <h2
@@ -331,12 +322,12 @@ setTimeout(() => {
                 Submit
               </button>
               {showToast && (
-  <Toast
-    message={toastMessage}
-    type={toastType}
-    onClose={() => setShowToast(false)}
-  />
-)}
+                <Toast
+                  message={toastMessage}
+                  type={toastType}
+                  onClose={() => setShowToast(false)}
+                />
+              )}
             </form>
           </div>
         </div>

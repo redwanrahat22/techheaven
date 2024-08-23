@@ -11,87 +11,65 @@ const Register = () => {
   const [showconpass, setshowconpass] = useState(false);
   const [errormessage, seterrormess] = useState("");
   const [showToast, setShowToast] = useState(false);
-const [toastMessage, setToastMessage] = useState('');
-const [toastType, setToastType] = useState('success');
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("success");
   const nav = useNavigate();
 
   const handleGDB = async (GUserInfo) => {
     const res = await fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${GUserInfo.email}`
+      `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
     );
 
     const data = await res.json();
 
     if (!data) {
-      fetch(
-        "https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(GUserInfo),
-        }
-      );
-
-    
-   
-
-
-
+      fetch("https://tech-heaven-server-seven.vercel.app/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(GUserInfo),
+      });
     }
   };
 
   const handleDB = async (UserData) => {
     try {
-      await fetch(
-        "https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(UserData),
-        }
-      )
+      await fetch("https://tech-heaven-server-seven.vercel.app/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(UserData),
+      })
         .then((res) => res.json())
-        .then((data) => console.log("data added") );
+        .then((data) => console.log("data added"));
 
-      setToastMessage('Sign Up Was Successful');
-      setToastType('success');
+      setToastMessage("Sign Up Was Successful");
+      setToastType("success");
       setShowToast(true);
-      
-setTimeout(() => {
-  setShowToast(false)
-  setTimeout(() => {
-    nav('/')
-    window.location.reload();
-  }, 1000);
- 
-}, 1200);
-   
+
+      setTimeout(() => {
+        setShowToast(false);
+        setTimeout(() => {
+          nav("/");
+          window.location.reload();
+        }, 1000);
+      }, 1200);
     } catch {
-
-      setToastMessage('Login successful');
-      setToastType('error');
+      setToastMessage("Login successful");
+      setToastType("error");
       setShowToast(true);
-      
-   
-setTimeout(() => {
-  setShowToast(false)
-  setTimeout(() => {
-    nav('/')
-  }, 1000);
- 
-}, 1200);
-     
-    }
-    
-    finally {
+
+      setTimeout(() => {
+        setShowToast(false);
+        setTimeout(() => {
+          nav("/");
+        }, 1000);
+      }, 1200);
+    } finally {
       //nothing
     }
-
-    
   };
 
   const handleRegister = (e) => {
@@ -161,20 +139,17 @@ setTimeout(() => {
         };
 
         handleGDB(GUserInfo);
-        setToastMessage('Login successful');
-setToastType('success');
-setShowToast(true);
+        setToastMessage("Login successful");
+        setToastType("success");
+        setShowToast(true);
 
-setTimeout(() => {
-  setShowToast(false)
-  setTimeout(() => {
-    nav('/')
-    window.location.reload();
-  }, 1000);
- 
-}, 1200);
-
-    
+        setTimeout(() => {
+          setShowToast(false);
+          setTimeout(() => {
+            nav("/");
+            window.location.reload();
+          }, 1000);
+        }, 1200);
       })
       .catch((error) => {
         //error
@@ -184,8 +159,6 @@ setTimeout(() => {
   return (
     <div>
       <div className="h-auto mb-16 md:mb-20  ">
-       
-
         <div
           className={`  md:mt-20 border-2 md:text-left shadow-lg md:rounded-tr-3xl md:rounded-bl-2xl rounded-tr-xl rounded-bl-xl w-4/5   md:w-2/5 m-auto ${
             screenmode
@@ -319,12 +292,12 @@ setTimeout(() => {
           </form>
 
           {showToast && (
-      <Toast 
-    message={toastMessage}
-    type={toastType}
-    onClose={() => setShowToast(false)}
-           />
-)}
+            <Toast
+              message={toastMessage}
+              type={toastType}
+              onClose={() => setShowToast(false)}
+            />
+          )}
           <div className="flex justify-center mt-4 md:mt-8 space-x-1 font-menu text-sm">
             <h1>Already have an account?</h1>
             <NavLink to={"/login"}>

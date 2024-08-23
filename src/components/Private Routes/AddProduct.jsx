@@ -6,8 +6,8 @@ const AddProduct = () => {
   const { screenmode } = useContext(AuthContex);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState('success');
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("success");
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -26,29 +26,23 @@ const AddProduct = () => {
 
     const productInfo = { name, type, price, brand, rating, description, url };
 
-    fetch(`https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/productDB`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(productInfo),
-      }
-    )
-  
+    fetch(`https://tech-heaven-server-seven.vercel.app/productDB`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(productInfo),
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        setToastMessage('Product Added Successfully');
-        setToastType('success');
+        console.log(data);
+        setToastMessage("Product Added Successfully");
+        setToastType("success");
         setShowToast(true);
         setTimeout(() => {
-            setShowToast(false)
-        
+          setShowToast(false);
         }, 1500);
       });
-  
-    
   };
 
   const nowebkit = {
@@ -327,12 +321,12 @@ const AddProduct = () => {
                 Submit
               </button>
               {showToast && (
-  <Toast
-    message={toastMessage}
-    type={toastType}
-    onClose={() => setShowToast(false)}
-  />
-)}
+                <Toast
+                  message={toastMessage}
+                  type={toastType}
+                  onClose={() => setShowToast(false)}
+                />
+              )}
             </form>
           </div>
         </div>

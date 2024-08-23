@@ -23,9 +23,7 @@ const AddtoCart = () => {
   const [userID, setuserId] = useState("");
 
   useEffect(() => {
-    fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${useremail}`
-    )
+    fetch(`https://tech-heaven-server-seven.vercel.app/users/${useremail}`)
       .then((res) => res.json())
       .then((data) => {
         setcartData(data.cart);
@@ -58,16 +56,13 @@ const AddtoCart = () => {
     });
 
     setcartData(newCart);
-    fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/addtocart/${userID}`,
-      {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newCart),
-      }
-    );
+    fetch(`https://tech-heaven-server-seven.vercel.app/addtocart/${userID}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCart),
+    });
     settotalCart(newCart.length);
     setIsOpen(false);
   };
@@ -79,10 +74,10 @@ const AddtoCart = () => {
   useLayoutEffect(() => {
     window.scrollTo(0, 80);
   }, []);
-  const total = cartData.reduce(
-    (accu, data) => accu + Number(data.prodPrice),
-    0
-  );
+  const total = cartData
+    .reduce((accu, data) => accu + Number(data.prodPrice), 0)
+    .toFixed(2);
+
   return (
     <div className="h-auto font-menu">
       <div className="md:mt-20 -mt-8">
