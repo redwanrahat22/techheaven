@@ -1,11 +1,13 @@
 import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContex } from "../AuthProvider/AuthProvider";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import Toast from "../Toast";
 
 const UpdateInfo = () => {
   const UpdateData = useLoaderData();
-
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('success');
   const { screenmode } = useContext(AuthContex);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [FormData, setFormData] = useState(UpdateData);
@@ -30,19 +32,16 @@ const UpdateInfo = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-    
 
-        toast.success("Product Updated Successfully", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        });
+        setToastMessage('Product Info Was Updated');
+setToastType('success');
+setShowToast(true);
+setTimeout(() => {
+    setShowToast(false)
+
+}, 1500);
+
+     
       });
   };
 
@@ -67,21 +66,7 @@ const UpdateInfo = () => {
 
   return (
     <div className="h-auto mb-16 md:mb-20 md:mt-16 -mt-8 font-menu">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition:Bounce
-      />
-
-      <ToastContainer />
+    
       <div>
         <div className="text-center mb-8 md:mb-16">
           <h2
@@ -345,6 +330,13 @@ const UpdateInfo = () => {
               >
                 Submit
               </button>
+              {showToast && (
+  <Toast
+    message={toastMessage}
+    type={toastType}
+    onClose={() => setShowToast(false)}
+  />
+)}
             </form>
           </div>
         </div>

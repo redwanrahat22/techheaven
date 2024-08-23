@@ -1,10 +1,13 @@
 import { useContext, useLayoutEffect, useState } from "react";
 import { AuthContex } from "../AuthProvider/AuthProvider";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import Toast from "../Toast";
 const AddProduct = () => {
   const { screenmode } = useContext(AuthContex);
   const [selectedBrand, setSelectedBrand] = useState("");
-
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('success');
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -23,8 +26,7 @@ const AddProduct = () => {
 
     const productInfo = { name, type, price, brand, rating, description, url };
 
-    fetch(
-      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/productDB`,
+    fetch(`https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/productDB`,
       {
         method: "POST",
         headers: {
@@ -33,23 +35,20 @@ const AddProduct = () => {
         body: JSON.stringify(productInfo),
       }
     )
+  
       .then((res) => res.json())
       .then((data) => {
-        const notify = () => {
-          toast.success("Product Added Successfully", {
-            position: "top-right",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
-        };
-        notify();
+        console.log(data)
+        setToastMessage('Product Added Successfully');
+        setToastType('success');
+        setShowToast(true);
+        setTimeout(() => {
+            setShowToast(false)
+        
+        }, 1500);
       });
+  
+    
   };
 
   const nowebkit = {
@@ -327,6 +326,13 @@ const AddProduct = () => {
               >
                 Submit
               </button>
+              {showToast && (
+  <Toast
+    message={toastMessage}
+    type={toastType}
+    onClose={() => setShowToast(false)}
+  />
+)}
             </form>
           </div>
         </div>
