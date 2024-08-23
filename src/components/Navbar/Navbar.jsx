@@ -14,22 +14,21 @@ const Navbar = () => {
     settotalCart,
     totalCart,
     setUserInfo,
-    
-    userInfo
-  } = useContext(AuthContex);
-  const [useremail,setuseremail] =useState(JSON.parse(localStorage.getItem("email")))
-  useEffect(()=>{
-    const useremail = JSON.parse(localStorage.getItem("email"));
-    setuseremail(useremail)
 
-  },[])
+    userInfo,
+  } = useContext(AuthContex);
+  const [useremail, setuseremail] = useState(
+    JSON.parse(localStorage.getItem("email"))
+  );
+  useEffect(() => {
+    const useremail = JSON.parse(localStorage.getItem("email"));
+    setuseremail(useremail);
+  }, []);
   const [scroll, setScroll] = useState(false);
   const [charImg, setcharImg] = useState(null);
 
   useEffect(() => {
-    fetch(
-      `https://tech-heaven-server-seven.vercel.app/users/${useremail}`
-    )
+    fetch(`https://techheaven-server-ph.onrender.com/users/${useremail}`)
       .then((res) => res.json())
       .then((data) => {
         data.cart ? settotalCart(data.cart.length) : settotalCart(0);
@@ -41,7 +40,6 @@ const Navbar = () => {
         });
       });
   }, [useremail]);
-
 
   useEffect(() => {
     const handleScroll = () => {

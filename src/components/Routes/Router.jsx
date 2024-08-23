@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: "/showproducts/:brand",
         loader: ({ params }) =>
           fetch(
-            `https://tech-heaven-server-seven.vercel.app/showproducts/${params.brand}`
+            `https://techheaven-server-ph.onrender.com/showproducts/${params.brand}`
           ),
         element: <ShowProducts></ShowProducts>,
       },
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         path: "/details/:brand/:id",
         loader: ({ params }) =>
           fetch(
-            `https://tech-heaven-server-seven.vercel.app/details/${params.brand}/${params.id}`
+            `https://techheaven-server-ph.onrender.com/details/${params.brand}/${params.id}`
           ),
         element: (
           <PrivateRoute>
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         path: "/update/:brand/:id",
         loader: ({ params }) =>
           fetch(
-            `https://tech-heaven-server-seven.vercel.app/update/${params.brand}/${params.id}`
+            `https://techheaven-server-ph.onrender.com/update/${params.brand}/${params.id}`
           ),
         element: (
           <PrivateRoute>

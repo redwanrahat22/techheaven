@@ -14,30 +14,25 @@ const Login = () => {
     setUserInfo,
   } = useContext(AuthContex);
   const [showToast, setShowToast] = useState(false);
-const [toastMessage, setToastMessage] = useState('');
-const [toastType, setToastType] = useState('success');
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("success");
   const [showpass, setshowpass] = useState(false);
 
   const [errormessage, seterrormess] = useState("");
   const nav = useNavigate();
 
   const handleDB = (UserData) => {
-    fetch(
-      `https://tech-heaven-server-seven.vercel.app/users/${UserData.email}`
-    )
+    fetch(`https://techheaven-server-ph.onrender.com/users/${UserData.email}`)
       .then((res) => res.json())
       .then((data) => {
         if (!data) {
-          fetch(
-            "https://tech-heaven-server-seven.vercel.app/users",
-            {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(UserData),
-            }
-          );
+          fetch("https://techheaven-server-ph.onrender.com/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(UserData),
+          });
         }
       });
   };
@@ -58,21 +53,17 @@ const [toastType, setToastType] = useState('success');
     handleSignIn(email, password)
       .then((result) => {
         handleGetEmail(email);
-        setToastMessage('Login successful');
-        setToastType('success');
+        setToastMessage("Login successful");
+        setToastType("success");
         setShowToast(true);
-        
-       
-setTimeout(() => {
-  setShowToast(false)
-  setTimeout(() => {
-    nav('/')
-    window.location.reload();
-  }, 1000);
- 
-}, 1200);
 
-    
+        setTimeout(() => {
+          setShowToast(false);
+          setTimeout(() => {
+            nav("/");
+            window.location.reload();
+          }, 1000);
+        }, 1200);
       })
       .catch((error) => {
         if (error.message == "Firebase: Error (auth/invalid-credential).")
@@ -101,27 +92,23 @@ setTimeout(() => {
         };
 
         handleDB(UserInfog);
-        setToastMessage('Login successful');
-setToastType('success');
-setShowToast(true);
-      
-setTimeout(() => {
-  setShowToast(false)
-  setTimeout(() => {
-    nav('/')
-    window.location.reload();
-  }, 1000);
- 
-}, 1200);
+        setToastMessage("Login successful");
+        setToastType("success");
+        setShowToast(true);
+
+        setTimeout(() => {
+          setShowToast(false);
+          setTimeout(() => {
+            nav("/");
+            window.location.reload();
+          }, 1000);
+        }, 1200);
       })
-      .catch((error) => {
-       
-      });
+      .catch((error) => {});
   };
 
   return (
     <div className="h-auto mb-16 md:mb-20 ">
-   
       <div
         className={` md:mt-20 border-2 md:text-left shadow-lg md:rounded-tr-3xl md:rounded-bl-2xl rounded-tr-xl rounded-bl-xl w-4/5   md:w-2/5 m-auto ${
           screenmode
@@ -229,12 +216,12 @@ setTimeout(() => {
           }`}
         >
           {showToast && (
-  <Toast
-    message={toastMessage}
-    type={toastType}
-    onClose={() => setShowToast(false)}
-  />
-)}
+            <Toast
+              message={toastMessage}
+              type={toastType}
+              onClose={() => setShowToast(false)}
+            />
+          )}
 
           <img
             src="https://i.postimg.cc/MZbxcsJG/google-png-small.png"
