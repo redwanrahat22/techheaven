@@ -15,11 +15,11 @@ const UpdateInfo = () => {
   }, []);
 
   const handleUpdate = (e) => {
-    console.log("update clicked");
+    
     e.preventDefault();
 
     fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/productDB`,
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/productDB`,
       {
         method: "PUT",
         headers: {
@@ -30,7 +30,7 @@ const UpdateInfo = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+    
 
         toast.success("Product Updated Successfully", {
           position: "top-right",

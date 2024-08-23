@@ -14,7 +14,8 @@ const Navbar = () => {
     settotalCart,
     totalCart,
     setUserInfo,
-    userInfo,
+    
+    userInfo
   } = useContext(AuthContex);
 
   const useremail = JSON.parse(localStorage.getItem("email"));
@@ -37,7 +38,6 @@ const Navbar = () => {
       });
   }, [useremail]);
 
-  console.log(userInfo);
 
   useEffect(() => {
     const handleScroll = () => {

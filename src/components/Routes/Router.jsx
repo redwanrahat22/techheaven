@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: "/showproducts/:brand",
         loader: ({ params }) =>
           fetch(
-            `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/showproducts/${params.brand}`
+            `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/showproducts/${params.brand}`
           ),
         element: <ShowProducts></ShowProducts>,
       },
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         path: "/details/:brand/:id",
         loader: ({ params }) =>
           fetch(
-            `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/details/${params.brand}/${params.id}`
+            `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/details/${params.brand}/${params.id}`
           ),
         element: (
           <PrivateRoute>
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         path: "/update/:brand/:id",
         loader: ({ params }) =>
           fetch(
-            `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/update/${params.brand}/${params.id}`
+            `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/update/${params.brand}/${params.id}`
           ),
         element: (
           <PrivateRoute>

@@ -24,7 +24,7 @@ const AddProduct = () => {
     const productInfo = { name, type, price, brand, rating, description, url };
 
     fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/productDB`,
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/productDB`,
       {
         method: "POST",
         headers: {

@@ -3,7 +3,8 @@ import { AuthContex } from "./AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
-import Toast from "../Toast1";
+import Toast from "../Toast";
+
 const Login = () => {
   const {
     screenmode,
@@ -12,6 +13,9 @@ const Login = () => {
     handleGetEmail,
     setUserInfo,
   } = useContext(AuthContex);
+  const [showToast, setShowToast] = useState(false);
+const [toastMessage, setToastMessage] = useState('');
+const [toastType, setToastType] = useState('success');
   const [showpass, setshowpass] = useState(false);
 
   const [errormessage, seterrormess] = useState("");
@@ -19,13 +23,13 @@ const Login = () => {
 
   const handleDB = (UserData) => {
     fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${UserData.email}`
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${UserData.email}`
     )
       .then((res) => res.json())
       .then((data) => {
         if (!data) {
           fetch(
-            "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
+            "https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users",
             {
               method: "POST",
               headers: {
@@ -54,21 +58,21 @@ const Login = () => {
     handleSignIn(email, password)
       .then((result) => {
         handleGetEmail(email);
+        setToastMessage('Login successful');
+        setToastType('success');
+        setShowToast(true);
+        
+       
+setTimeout(() => {
+  setShowToast(false)
+  setTimeout(() => {
+    nav('/')
+    window.location.reload();
+  }, 1000);
+ 
+}, 1200);
 
-        toast.success("Login Successful ", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        setTimeout(() => {
-          nav("/");
-        }, 1500);
+    
       })
       .catch((error) => {
         if (error.message == "Firebase: Error (auth/invalid-credential).")
@@ -97,45 +101,27 @@ const Login = () => {
         };
 
         handleDB(UserInfog);
-
-        toast.success("Login Successful ", {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          onClose: () => {
-            setTimeout(() => {
-              nav("/");
-            }, 1500);
-          },
-        });
+        setToastMessage('Login successful');
+setToastType('success');
+setShowToast(true);
+      
+setTimeout(() => {
+  setShowToast(false)
+  setTimeout(() => {
+    nav('/')
+    window.location.reload();
+  }, 1000);
+ 
+}, 1200);
       })
       .catch((error) => {
-        console.log(error);
+       
       });
   };
 
   return (
     <div className="h-auto mb-16 md:mb-20 ">
-      <ToastContainer
-        position="top-right"
-        autoClose={1500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition:Bounce
-      />
-      <ToastContainer />
+   
       <div
         className={` md:mt-20 border-2 md:text-left shadow-lg md:rounded-tr-3xl md:rounded-bl-2xl rounded-tr-xl rounded-bl-xl w-4/5   md:w-2/5 m-auto ${
           screenmode
@@ -242,6 +228,14 @@ const Login = () => {
               : "bg-[#eff4fd] border-slate-300 hover:bg-lmblue hover:text-white hover:bg-opacity-60 hover:shadow-lmblue hover:shadow-md"
           }`}
         >
+          {showToast && (
+  <Toast
+    message={toastMessage}
+    type={toastType}
+    onClose={() => setShowToast(false)}
+  />
+)}
+
           <img
             src="https://i.postimg.cc/MZbxcsJG/google-png-small.png"
             className="w-6"

@@ -24,7 +24,7 @@ const AddtoCart = () => {
 
   useEffect(() => {
     fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${useremail}`
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${useremail}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -59,7 +59,7 @@ const AddtoCart = () => {
 
     setcartData(newCart);
     fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/addtocart/${userID}`,
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/addtocart/${userID}`,
       {
         method: "PATCH",
         headers: {

@@ -1,15 +1,19 @@
 import { useLoaderData } from "react-router-dom";
 import { FaCartArrowDown } from "react-icons/fa";
-import { useContext, useEffect, useId, useLayoutEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { AuthContex } from "../AuthProvider/AuthProvider";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import Toast from "../Toast";
+
 const ViewDetails = () => {
   const viewData = useLoaderData();
   const { screenmode, settotalCart } = useContext(AuthContex);
-  const [loadUser, setloadUser] = useState(null);
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('info');
 
   const useremail = JSON.parse(localStorage.getItem("email"));
-  console.log(useremail);
+
 
   const handleCart = async (e) => {
     e.preventDefault();
@@ -30,13 +34,12 @@ const ViewDetails = () => {
       prodRating,
     };
 
-    console.log("entered funtion");
 
     const temparr = [];
     // let username = "";
 
     const response = await fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${useremail}`
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${useremail}`
     );
 
     const data = await response.json();
@@ -46,17 +49,16 @@ const ViewDetails = () => {
     // username = data._id;
     // if (loadUser?.cart.length > 0) temparr.push(...loadUser.cart);
 
-    console.log("in try", "data", data);
-    console.log("temp arr", temparr);
+
     data.cart ? temparr.push(...data.cart, prodData) : temparr.push(prodData);
 
-    console.log("after update temparr", temparr);
+
 
     // if (loadUser?.cart) temparr.push(...loadUser.cart);
     // else temparr.push(prodData);
 
     fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/addtocart/${data._id}`,
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/addtocart/${data._id}`,
       {
         method: "PATCH",
         headers: {
@@ -68,8 +70,13 @@ const ViewDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         settotalCart(temparr.length);
-
-        toast.success("Successfully added to cart");
+        setToastMessage('Successfully Added To Cart')
+        setToastType('success')
+        setShowToast(true)
+        setTimeout(() => {
+          setShowToast(false)
+        }, 2000);
+      
       });
   };
 
@@ -103,6 +110,13 @@ const ViewDetails = () => {
                 <h1>Add to Cart</h1>
                 <FaCartArrowDown />
               </button>
+              {showToast && (
+        <Toast
+          message={toastMessage}
+          type={toastType}
+          onClose={() => setShowToast(false)}
+        />
+      )}
             </div>
           </div>
 

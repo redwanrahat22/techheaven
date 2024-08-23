@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContex } from "./AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import Toast from "../Toast";
 
 const Register = () => {
   const { screenmode, handleSignUp, handleGoogleSignIn, handleGetEmail } =
@@ -10,18 +10,21 @@ const Register = () => {
   const [showpass, setshowpass] = useState(false);
   const [showconpass, setshowconpass] = useState(false);
   const [errormessage, seterrormess] = useState("");
+  const [showToast, setShowToast] = useState(false);
+const [toastMessage, setToastMessage] = useState('');
+const [toastType, setToastType] = useState('success');
   const nav = useNavigate();
 
   const handleGDB = async (GUserInfo) => {
     const res = await fetch(
-      `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${GUserInfo.email}`
+      `https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users/${GUserInfo.email}`
     );
 
     const data = await res.json();
 
     if (!data) {
       fetch(
-        "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
+        "https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users",
         {
           method: "POST",
           headers: {
@@ -31,30 +34,18 @@ const Register = () => {
         }
       );
 
-      console.log("data on google");
-      toast.success("Login Successful ", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-        onClose: () => {
-          setTimeout(() => {
-            nav("/");
-          }, 1500);
-        },
-      });
+    
+   
+
+
+
     }
   };
 
   const handleDB = async (UserData) => {
     try {
       await fetch(
-        "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
+        "https://tech-heaven-server-3asvea5rc-codingmasters-projects-5cf7a7b3.vercel.app/users",
         {
           method: "POST",
           headers: {
@@ -64,72 +55,43 @@ const Register = () => {
         }
       )
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => console.log("data added") );
 
-      console.log("data added");
-      toast.success("User Created Successfully ", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-        onClose: () => {
-          setTimeout(() => {
-            nav("/");
-          }, 1500);
-        },
-      });
+      setToastMessage('Sign Up Was Successful');
+      setToastType('success');
+      setShowToast(true);
+      
+setTimeout(() => {
+  setShowToast(false)
+  setTimeout(() => {
+    nav('/')
+    window.location.reload();
+  }, 1000);
+ 
+}, 1200);
+   
     } catch {
-      toast.error("Oops! Something went wrong", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
-    } finally {
-      console.log("");
+
+      setToastMessage('Login successful');
+      setToastType('error');
+      setShowToast(true);
+      
+   
+setTimeout(() => {
+  setShowToast(false)
+  setTimeout(() => {
+    nav('/')
+  }, 1000);
+ 
+}, 1200);
+     
+    }
+    
+    finally {
+      //nothing
     }
 
-    // fetch(
-    //   `https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users/${UserData.email}`
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-
-    //     if (!data) {
-    //       fetch(
-    //         "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
-    //         {
-    //           method: "POST",
-    //           headers: {
-    //             "content-type": "application/json",
-    //           },
-    //           body: JSON.stringify(UserData),
-    //         }
-    //       );
-    //     }
-    //   })
-    // .catch((result) => {
-    //   fetch(
-    //     "https://tech-heaven-server-1o6jr45h8-noobcooders-projects.vercel.app/users",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "content-type": "application/json",
-    //       },
-    //       body: JSON.stringify(UserData),
-    //     }
-    //   );
-    // });
+    
   };
 
   const handleRegister = (e) => {
@@ -199,46 +161,30 @@ const Register = () => {
         };
 
         handleGDB(GUserInfo);
+        setToastMessage('Login successful');
+setToastType('success');
+setShowToast(true);
 
-        toast.success("Login Successful ", {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-          onClose: () => {
-            setTimeout(() => {
-              nav("/");
-            }, 1500);
-          },
-        });
+setTimeout(() => {
+  setShowToast(false)
+  setTimeout(() => {
+    nav('/')
+    window.location.reload();
+  }, 1000);
+ 
+}, 1200);
+
+    
       })
       .catch((error) => {
-        console.log(error);
+        //error
       });
   };
 
   return (
     <div>
       <div className="h-auto mb-16 md:mb-20  ">
-        <ToastContainer
-          position="top-right"
-          autoClose={1500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          transition:Bounce
-        />
-        <ToastContainer />
+       
 
         <div
           className={`  md:mt-20 border-2 md:text-left shadow-lg md:rounded-tr-3xl md:rounded-bl-2xl rounded-tr-xl rounded-bl-xl w-4/5   md:w-2/5 m-auto ${
@@ -372,6 +318,13 @@ const Register = () => {
             </div>
           </form>
 
+          {showToast && (
+      <Toast 
+    message={toastMessage}
+    type={toastType}
+    onClose={() => setShowToast(false)}
+           />
+)}
           <div className="flex justify-center mt-4 md:mt-8 space-x-1 font-menu text-sm">
             <h1>Already have an account?</h1>
             <NavLink to={"/login"}>
