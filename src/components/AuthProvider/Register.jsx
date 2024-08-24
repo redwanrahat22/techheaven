@@ -3,6 +3,7 @@ import { AuthContex } from "./AuthProvider";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
 import Toast from "../Toast";
+import axios from "axios";
 
 const Register = () => {
   const { screenmode, handleSignUp, handleGoogleSignIn, handleGetEmail } =
@@ -16,20 +17,17 @@ const Register = () => {
   const nav = useNavigate();
 
   const handleGDB = async (GUserInfo) => {
-    const res = await fetch(
-      `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
-    );
+    const fetching = await axios
+      .get(
+        `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
+      )
+      .then((data) => {});
 
-    const data = await res.json();
-
-    if (!data) {
-      fetch("https://tech-heaven-server-seven.vercel.app/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(GUserInfo),
-      });
+    if (!fetching) {
+      axios
+        .post("https://tech-heaven-server-seven.vercel.app/users", GUserInfo)
+        .then((data) => {})
+        .catch((error) => {});
     }
   };
 
@@ -43,7 +41,7 @@ const Register = () => {
         body: JSON.stringify(UserData),
       })
         .then((res) => res.json())
-        .then((data) => console.log("data added"));
+        .then((data) => {});
 
       setToastMessage("Sign Up Was Successful");
       setToastType("success");
@@ -63,9 +61,9 @@ const Register = () => {
 
       setTimeout(() => {
         setShowToast(false);
-        setTimeout(() => {
-          nav("/");
-        }, 1000);
+        // setTimeout(() => {
+        //   nav("/");
+        // }, 1000);
       }, 1200);
     } finally {
       //nothing
@@ -139,6 +137,7 @@ const Register = () => {
         };
 
         handleGDB(GUserInfo);
+
         setToastMessage("Login successful");
         setToastType("success");
         setShowToast(true);

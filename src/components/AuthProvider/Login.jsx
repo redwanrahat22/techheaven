@@ -4,6 +4,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import Toast from "../Toast";
+import axios from "axios";
 
 const Login = () => {
   const {
@@ -20,6 +21,21 @@ const Login = () => {
 
   const [errormessage, seterrormess] = useState("");
   const nav = useNavigate();
+
+  const handleGDB = async (GUserInfo) => {
+    const fetching = await axios
+      .get(
+        `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
+      )
+      .then((data) => {});
+
+    if (!fetching) {
+      axios
+        .post("https://tech-heaven-server-seven.vercel.app/users", GUserInfo)
+        .then((data) => {})
+        .catch((error) => {});
+    }
+  };
 
   const handleDB = (UserData) => {
     fetch(`https://tech-heaven-server-seven.vercel.app/users/${UserData.email}`)
@@ -91,7 +107,7 @@ const Login = () => {
           gverify,
         };
 
-        handleDB(UserInfog);
+        handleGDB(UserInfog);
         setToastMessage("Login successful");
         setToastType("success");
         setShowToast(true);
