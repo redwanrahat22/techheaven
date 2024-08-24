@@ -17,19 +17,21 @@ const Register = () => {
   const nav = useNavigate();
 
   const handleGDB = async (GUserInfo) => {
-    const fetching = await axios
-      .get(
-        `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
-      )
-      .then((data) => {});
+          
+    await axios.get(
+         `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
+       )
+           .then(data=>{
+                 
+          if(data.data == null || data.data == undefined || data.data == '') {
 
-    if (!fetching) {
-      axios
-        .post("https://tech-heaven-server-seven.vercel.app/users", GUserInfo)
-        .then((data) => {})
-        .catch((error) => {});
-    }
-  };
+       axios.post("https://tech-heaven-server-seven.vercel.app/users", GUserInfo)
+         .then((data) => {})
+         .catch((error) => {});
+       
+     }     })
+ 
+   };
 
   const handleDB = async (UserData) => {
     try {

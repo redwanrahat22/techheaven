@@ -23,35 +23,39 @@ const Login = () => {
   const nav = useNavigate();
 
   const handleGDB = async (GUserInfo) => {
-    const fetching = await axios
-      .get(
+          
+   await axios.get(
         `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
       )
-      .then((data) => {});
-
-    if (!fetching) {
-      axios
-        .post("https://tech-heaven-server-seven.vercel.app/users", GUserInfo)
+          .then(data=>{
+                
+         if(data.data == null || data.data == undefined || data.data == '') {
+   
+      axios.post("https://tech-heaven-server-seven.vercel.app/users", GUserInfo)
         .then((data) => {})
         .catch((error) => {});
+      
     }
+  
+          })
+
   };
 
-  const handleDB = (UserData) => {
-    fetch(`https://tech-heaven-server-seven.vercel.app/users/${UserData.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data) {
-          fetch("https://tech-heaven-server-seven.vercel.app/users", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(UserData),
-          });
-        }
-      });
-  };
+  // const handleDB = (UserData) => {
+  //   fetch(`https://tech-heaven-server-seven.vercel.app/users/${UserData.email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (!data) {
+  //         fetch("https://tech-heaven-server-seven.vercel.app/users", {
+  //           method: "POST",
+  //           headers: {
+  //             "content-type": "application/json",
+  //           },
+  //           body: JSON.stringify(UserData),
+  //         });
+  //       }
+  //     });
+  // };
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
