@@ -28,7 +28,7 @@ const Navbar = () => {
   const [charImg, setcharImg] = useState(null);
 
   useEffect(() => {
-    fetch(`https://techheaven-server-ph.onrender.com/users/${useremail}`)
+    fetch(`https://tech-heaven-server-seven.vercel.app/users/${useremail}`)
       .then((res) => res.json())
       .then((data) => {
         data.cart ? settotalCart(data.cart.length) : settotalCart(0);

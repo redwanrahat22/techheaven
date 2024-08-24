@@ -37,7 +37,7 @@ const ViewDetails = () => {
     // let username = "";
 
     const response = await fetch(
-      `https://techheaven-server-ph.onrender.com/users/${useremail}`
+      `https://tech-heaven-server-seven.vercel.app/users/${useremail}`
     );
 
     const data = await response.json();
@@ -52,7 +52,7 @@ const ViewDetails = () => {
     // if (loadUser?.cart) temparr.push(...loadUser.cart);
     // else temparr.push(prodData);
 
-    fetch(`https://techheaven-server-ph.onrender.com/addtocart/${data._id}`, {
+    fetch(`https://tech-heaven-server-seven.vercel.app/addtocart/${data._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

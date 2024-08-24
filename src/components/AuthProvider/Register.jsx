@@ -17,13 +17,13 @@ const Register = () => {
 
   const handleGDB = async (GUserInfo) => {
     const res = await fetch(
-      `https://techheaven-server-ph.onrender.com/users/${GUserInfo.email}`
+      `https://tech-heaven-server-seven.vercel.app/users/${GUserInfo.email}`
     );
 
     const data = await res.json();
 
     if (!data) {
-      fetch("https://techheaven-server-ph.onrender.com/users", {
+      fetch("https://tech-heaven-server-seven.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -35,7 +35,7 @@ const Register = () => {
 
   const handleDB = async (UserData) => {
     try {
-      await fetch("https://techheaven-server-ph.onrender.com/users", {
+      await fetch("https://tech-heaven-server-seven.vercel.app/users", {
         method: "POST",
         headers: {
           "content-type": "application/json",

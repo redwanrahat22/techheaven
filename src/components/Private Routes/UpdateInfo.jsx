@@ -19,7 +19,7 @@ const UpdateInfo = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    fetch(`https://techheaven-server-ph.onrender.com/productDB`, {
+    fetch(`https://tech-heaven-server-seven.vercel.app/productDB`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

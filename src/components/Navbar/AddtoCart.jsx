@@ -23,7 +23,7 @@ const AddtoCart = () => {
   const [userID, setuserId] = useState("");
 
   useEffect(() => {
-    fetch(`https://techheaven-server-ph.onrender.com/users/${useremail}`)
+    fetch(`https://tech-heaven-server-seven.vercel.app/users/${useremail}`)
       .then((res) => res.json())
       .then((data) => {
         setcartData(data.cart);
@@ -56,7 +56,7 @@ const AddtoCart = () => {
     });
 
     setcartData(newCart);
-    fetch(`https://techheaven-server-ph.onrender.com/addtocart/${userID}`, {
+    fetch(`https://tech-heaven-server-seven.vercel.app/addtocart/${userID}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

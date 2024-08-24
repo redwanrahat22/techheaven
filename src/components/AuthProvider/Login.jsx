@@ -22,11 +22,11 @@ const Login = () => {
   const nav = useNavigate();
 
   const handleDB = (UserData) => {
-    fetch(`https://techheaven-server-ph.onrender.com/users/${UserData.email}`)
+    fetch(`https://tech-heaven-server-seven.vercel.app/users/${UserData.email}`)
       .then((res) => res.json())
       .then((data) => {
         if (!data) {
-          fetch("https://techheaven-server-ph.onrender.com/users", {
+          fetch("https://tech-heaven-server-seven.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",

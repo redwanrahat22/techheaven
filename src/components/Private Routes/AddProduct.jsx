@@ -26,7 +26,7 @@ const AddProduct = () => {
 
     const productInfo = { name, type, price, brand, rating, description, url };
 
-    fetch(`https://techheaven-server-ph.onrender.com/productDB`, {
+    fetch(`https://tech-heaven-server-seven.vercel.app/productDB`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
